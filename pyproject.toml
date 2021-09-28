@@ -10,6 +10,7 @@ packages = [{include = "zscaler-admin-app"}]
 python = "^3.9"
 PyYAML = "^5.4.1"
 black = "^21.9b0"
+typer = "^0.4.0"
 
 [tool.poetry.dev-dependencies]
 
