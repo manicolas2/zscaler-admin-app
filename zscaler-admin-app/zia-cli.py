@@ -9,7 +9,7 @@ def adminUser():
         type=str,
     )
     parser.add_argument(
-        "--tenant", 
+        "--tenant",
         help="Specify target tenant",
         type=str,
     )
