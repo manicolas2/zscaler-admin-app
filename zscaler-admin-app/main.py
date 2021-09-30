@@ -1,3 +1,5 @@
+from typing import List, Optional
+
 import typer
 
 from utils import fetch_adminroles
@@ -6,6 +8,7 @@ from utils import fetch_adminusers
 from utils import fetch_adminuser_names
 from utils import fetch_url_categories
 from utils import fetch_url_category_names
+from utils import create_custom_url_category
 
 
 app = typer.Typer()
@@ -37,10 +40,21 @@ def adminuser(cmd: str, all: bool = False):
         else:
             for user in fetch_adminuser_names():
                 typer.echo(user)
+    
+    if cmd == "create":
+        pass
 
 
 @app.command()
-def urlcategory(cmd: str, all: bool = False, policy_file: str = None):
+def urlcategory(
+    cmd: str, 
+    all: bool = False, 
+    file: Optional[str] = None,
+    name: Optional[str] = None,
+    urls: Optional[List[str]] = None,
+    dbcategorizedurls: Optional[List[str]] = None,
+    description: Optional[str] = None,
+):
     if cmd is None:
         typer.echo("Please set correct cmd after `urlcategory`")
 
@@ -53,12 +67,30 @@ def urlcategory(cmd: str, all: bool = False, policy_file: str = None):
                 typer.echo(result)
 
     if cmd == "create":
-        if policy_file:
-            for result in fetch_url_categories():
-                typer.echo(result)
+        if file:
+            message = create_custom_url_category(source_file_path=file)
+            typer.echo(message)
+        elif name and urls:
+            typer.echo(name, urls)
+            message = create_custom_url_category(
+                configured_name=name,
+                urls=urls,
+                db_categorized_urls=dbcategorizedurls,
+                description=description, 
+            )
+            typer.echo(message)
         else:
-            typer.echo("Please set correct opotion with `--policy_file`")
-
+            name = typer.prompt("What's this URL Category Name?")
+            urls = typer.prompt("Which URLs do you include? To input multiple, input with space.")
+            urls = urls.split()
+            description = typer.prompt("Please write a description of this URL Category.")
+            message = create_custom_url_category(
+               configured_name=name,
+               urls=urls,
+               db_categorized_urls=dbcategorizedurls,
+               description=description, 
+            )
+            typer.echo(message)
 
 
 if __name__ == "__main__":

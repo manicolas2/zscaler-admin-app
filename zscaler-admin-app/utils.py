@@ -1,4 +1,5 @@
-from typing import Any
+import json
+from typing import Any, Optional
 from typing import Dict
 from typing import List
 
@@ -37,3 +38,27 @@ def fetch_url_category_names() -> List[str]:
         else:
             response.append(f"{category['id']} ({category['configuredName']})")
     return response
+
+def create_custom_url_category(
+    source_file_path: Optional[str] = None,
+    configured_name: Optional[str] = None,
+    urls: Optional[List[str]] = None,
+    db_categorized_urls: Optional[List[str]] = None,
+    description: Optional[str] = None
+):
+    if source_file_path:
+        with open(source_file_path) as file:
+            parameters = json.load(file)
+            configured_name = parameters["configuredName"]
+            urls = parameters["urls"]
+            db_categorized_urls = parameters["dbCategorizedUrls"]
+            description = parameters["description"]
+
+    message = url_categories.create_custom_url_category(
+        configured_name,
+        urls,
+        db_categorized_urls,
+        description,
+    )
+
+    return message
