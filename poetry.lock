@@ -193,12 +193,12 @@ requests = ">=2.26.0,<3.0.0"
 
 [package.source]
 type = "file"
-url = "../zscaler-python-sdk/dist/zscaler_python_sdk-0.1.0-py3-none-any.whl"
+url = "lib/zscaler_python_sdk-0.1.0-py3-none-any.whl"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "7af7f36bc7a26e74dbda19b3e72c015c5b80b51b523274592f71ec71c76f5537"
+content-hash = "882eb7ff9e07a60f5a7c7884d63c171be959bd9a69463a1a6ce97137eb6aa5e3"
 
 [metadata.files]
 black = [
@@ -333,5 +333,5 @@ urllib3 = [
     {file = "urllib3-1.26.7.tar.gz", hash = "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"},
 ]
 zscaler-python-sdk = [
-    {file = "zscaler_python_sdk-0.1.0-py3-none-any.whl", hash = "sha256:36452459cad68e10c032bc2fc9d025a124dba42fdd840c176f25fb63cc21bad5"},
+    {file = "zscaler_python_sdk-0.1.0-py3-none-any.whl", hash = "sha256:fc8495e08bebf8daed39969dfde827a103d04804961e069a3e25a0e50b0b9cca"},
 ]

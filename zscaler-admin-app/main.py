@@ -1,75 +1,65 @@
 import typer
-from zscaler_python_sdk import url_categories
 
-# from zscaler_python_sdk import url_categories
+from utils import fetch_adminroles
+from utils import fetch_adminrole_names
+from utils import fetch_adminusers
+from utils import fetch_adminuser_names
+from utils import fetch_url_categories
+from utils import fetch_url_category_names
+
 
 app = typer.Typer()
 
 
 @app.command()
-def adminuser(cmd: str):
-    # if cmd is None:
-    #     typer.echo("Please set correct cmd after `adminuser`")
-
-    sample_result = """
-        {
-            "id":45593290,
-            "loginName":"yuta.kawamura@zscaler.net",
-            "userName":"Yuta Kawamura",
-            "email":"yuta.kawamura@zscaler.net",
-            "role":{"id":41577,"name":"Super Admin",
-            "isNameL10nTag":true,
-            "extensions":{
-                "adminRank":"0",
-                "roleType":"EXEC_INSIGHT_AND_ORG_ADMIN"
-            }
-        },
-        "adminScopescopeGroupMemberEntities":[],
-        "adminScopeType":"ORGANIZATION",
-        "adminScopeScopeEntities":[],
-        "isPasswordLoginAllowed":true,
-        "pwdLastModifiedTime":1622193781,
-        "name":"Yuta Kawamura"
-    }
-    """
-
+def adminrole(cmd: str, all: bool = False):
+    if cmd is None:
+        typer.echo("Please set correct cmd after `adminrole`")
+    
     if cmd == "ls":
-        typer.echo(sample_result)
+        if all:
+            for role in fetch_adminroles():
+                typer.echo(role)
+        else:
+            for role in fetch_adminrole_names():
+                typer.echo(role)
 
 
 @app.command()
-def urlcategory(cmd: str):
+def adminuser(cmd: str, all: bool = False):
     if cmd is None:
         typer.echo("Please set correct cmd after `adminuser`")
 
-    sample_result = """
-        {
-            "id":45593290,
-            "loginName":"yuta.kawamura@zscaler.net",
-            "userName":"Yuta Kawamura",
-            "email":"yuta.kawamura@zscaler.net",
-            "role":{"id":41577,"name":"Super Admin",
-            "isNameL10nTag":true,
-            "extensions":{
-                "adminRank":"0",
-                "roleType":"EXEC_INSIGHT_AND_ORG_ADMIN"
-            }
-        },
-        "adminScopescopeGroupMemberEntities":[],
-        "adminScopeType":"ORGANIZATION",
-        "adminScopeScopeEntities":[],
-        "isPasswordLoginAllowed":true,
-        "pwdLastModifiedTime":1622193781,
-        "name":"Yuta Kawamura"
-    }
-    """
+    if cmd == "ls":
+        if all:
+            for user in fetch_adminusers():
+                typer.echo(user)
+        else:
+            for user in fetch_adminuser_names():
+                typer.echo(user)
+
+
+@app.command()
+def urlcategory(cmd: str, all: bool = False, policy_file: str = None):
+    if cmd is None:
+        typer.echo("Please set correct cmd after `urlcategory`")
 
     if cmd == "ls":
-        typer.echo(sample_result)
+        if all:
+            for result in fetch_url_categories():
+                typer.echo(result)
+        else:
+            for result in fetch_url_category_names():
+                typer.echo(result)
+
+    if cmd == "create":
+        if policy_file:
+            for result in fetch_url_categories():
+                typer.echo(result)
+        else:
+            typer.echo("Please set correct opotion with `--policy_file`")
 
 
 
 if __name__ == "__main__":
-    
-    print(url_categories.fetch_url_categories())
     app()
