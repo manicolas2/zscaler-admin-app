@@ -2,13 +2,13 @@ from typing import List, Optional
 
 import typer
 
-from utils import fetch_adminroles
-from utils import fetch_adminrole_names
-from utils import fetch_adminusers
-from utils import fetch_adminuser_names
-from utils import fetch_url_categories
-from utils import fetch_url_category_names
-from utils import create_custom_url_category
+from zscaler_admin_app.utils import fetch_adminroles
+from zscaler_admin_app.utils import fetch_adminrole_names
+from zscaler_admin_app.utils import fetch_adminusers
+from zscaler_admin_app.utils import fetch_adminuser_names
+from zscaler_admin_app.utils import fetch_url_categories
+from zscaler_admin_app.utils import fetch_url_category_names
+from zscaler_admin_app.utils import create_custom_url_category
 
 
 app = typer.Typer()
@@ -92,6 +92,3 @@ def urlcategory(
             )
             typer.echo(message)
 
-
-if __name__ == "__main__":
-    app()

@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["yuta519 <yuta519.ka23tf@docomo.ne.jp>"]
 license = "MIT"
-packages = [{include = "zscaler-admin-app"}]
+packages = [{include = "zscaler_admin_app"}]
 
 [tool.poetry.dependencies]
 python = "^3.9"
@@ -16,7 +16,7 @@ zscaler-python-sdk = {path = "lib/zscaler_python_sdk-0.1.0-py3-none-any.whl"}
 [tool.poetry.dev-dependencies]
 
 [tool.poetry.scripts]
-adminuser = "zscaler-admin-app.zia-cli:adminUser"
+zia = "zscaler_admin_app.main:app"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
