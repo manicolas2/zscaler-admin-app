@@ -18,7 +18,7 @@ app = typer.Typer()
 def adminrole(cmd: str, all: bool = False):
     if cmd is None:
         typer.echo("Please set correct cmd after `adminrole`")
-    
+
     if cmd == "ls":
         if all:
             for role in fetch_adminroles():
@@ -40,15 +40,15 @@ def adminuser(cmd: str, all: bool = False):
         else:
             for user in fetch_adminuser_names():
                 typer.echo(user)
-    
+
     if cmd == "create":
         pass
 
 
 @app.command()
 def urlcategory(
-    cmd: str, 
-    all: bool = False, 
+    cmd: str,
+    all: bool = False,
     file: Optional[str] = None,
     name: Optional[str] = None,
     urls: Optional[List[str]] = None,
@@ -76,19 +76,22 @@ def urlcategory(
                 configured_name=name,
                 urls=urls,
                 db_categorized_urls=dbcategorizedurls,
-                description=description, 
+                description=description,
             )
             typer.echo(message)
         else:
             name = typer.prompt("What's this URL Category Name?")
-            urls = typer.prompt("Which URLs do you include? To input multiple, input with space.")
+            urls = typer.prompt(
+                "Which URLs do you include? To input multiple, input with space."
+            )
             urls = urls.split()
-            description = typer.prompt("Please write a description of this URL Category.")
+            description = typer.prompt(
+                "Please write a description of this URL Category."
+            )
             message = create_custom_url_category(
-               configured_name=name,
-               urls=urls,
-               db_categorized_urls=dbcategorizedurls,
-               description=description, 
+                configured_name=name,
+                urls=urls,
+                db_categorized_urls=dbcategorizedurls,
+                description=description,
             )
             typer.echo(message)
-
