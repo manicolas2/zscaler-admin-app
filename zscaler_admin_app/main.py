@@ -18,7 +18,6 @@ app = typer.Typer()
 def adminrole(cmd: str, all: bool = False):
     if cmd is None:
         typer.echo("Please set correct cmd after `adminrole`")
-
     if cmd == "ls":
         if all:
             for role in fetch_adminroles():
@@ -29,10 +28,12 @@ def adminrole(cmd: str, all: bool = False):
 
 
 @app.command()
-def adminuser(cmd: str, all: bool = False):
+def adminuser(
+    cmd: str,
+    all: bool = False,
+):
     if cmd is None:
         typer.echo("Please set correct cmd after `adminuser`")
-
     if cmd == "ls":
         if all:
             for user in fetch_adminusers():
@@ -40,7 +41,6 @@ def adminuser(cmd: str, all: bool = False):
         else:
             for user in fetch_adminuser_names():
                 typer.echo(user)
-
     if cmd == "create":
         pass
 
@@ -57,7 +57,6 @@ def urlcategory(
 ):
     if cmd is None:
         typer.echo("Please set correct cmd after `urlcategory`")
-
     if cmd == "ls":
         if all:
             for result in fetch_url_categories():

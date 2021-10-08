@@ -12,7 +12,6 @@
   - list, create and update URL Filtering Rule
 
 
-
 ### Prerequisites
 ---
 - [poetry](https://python-poetry.org/docs/#installation)
@@ -27,12 +26,14 @@
 
 ### How to use
 ---
-1. Admin User
+1. Admin Role
+  - To show name of all admin role, `zia adminrole ls`.
+  - To show all information, use `--all` option. (`zia adminrole ls --all`) 
+ 
+2. Admin User
   - To show name and login name of all admin users, `zia adminuser ls`.
   - To show all information, use `--all` option. (`zia adminuser ls --all`) 
-  - 
- 
 
-2. URL Category
+3. URL Category
   - To show configured names of URL Categories, `zia urlcategory ls`.
   - To show all information, use `--all` option. (`zia urlcategory ls --all`) 
