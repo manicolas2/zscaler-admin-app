@@ -19,9 +19,17 @@
 
 ### Instllation / Setup
 ---
-1. To enter Virtual Environment, run `poetry shell`.
-2. Install packages to run `poetry install`.
-3. create ZIA credentials at `config/config.ini` in reference to `config/config.ini.sample`
+1. Cloen this repository, run `git clone https://github.com/yuta519/zscaler-admin-app.git`.
+2. To enter Virtual Environment, run `poetry shell`.
+3. Install packages to run `poetry install`.
+4. Write the ZIA credential infolmation at `config/config.ini` like
+  ```
+  [credential]
+  USERNAME=user@zscaler.net
+  PASSWORD=P@ssword
+  HOSTNAME=zscaler.net
+  APIKEY= xxx
+  ```
 
 
 ### How to use
