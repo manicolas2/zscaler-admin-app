@@ -10,6 +10,7 @@ from zscaler_admin_app.utils import fetch_url_categories
 from zscaler_admin_app.utils import fetch_url_category_names
 from zscaler_admin_app.utils import create_custom_url_category
 from zscaler_admin_app.utils import fetch_urlfiltering_rule_names
+from zscaler_admin_app.utils import fetch_urlfiltering_rule_details
 
 
 app = typer.Typer()
@@ -103,12 +104,12 @@ def urlfilter(
     all: bool = False,
 ):
     if cmd is None:
-        typer.echo("Please set correct cmd after `urlcategory`")
+        typer.echo("Please set correct cmd after `urlfilter`")
 
     if cmd == "ls":
         if all:
-            for rule_name in fetch_urlfiltering_rule_names():
-                typer.echo(rule_name)
+            for rule in fetch_urlfiltering_rule_details():
+                typer.echo(rule)
         else:
             for rule_name in fetch_urlfiltering_rule_names():
                 typer.echo(rule_name)

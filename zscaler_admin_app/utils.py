@@ -72,7 +72,7 @@ def create_custom_url_category(
     return message
 
 
-def fetch_urlfiltering_rule_names(all: bool = False) -> List[str]:
+def fetch_urlfiltering_rule_names() -> List[str]:
     url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules()
     names_of_urlfilter_rules = [
         (
@@ -82,3 +82,8 @@ def fetch_urlfiltering_rule_names(all: bool = False) -> List[str]:
         for rule in url_filter_rules
     ]
     return names_of_urlfilter_rules
+
+
+def fetch_urlfiltering_rule_details() -> List[str]:
+    url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules()
+    return url_filter_rules
