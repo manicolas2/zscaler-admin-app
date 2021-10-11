@@ -45,3 +45,13 @@
 3. URL Category
   - To show configured names of URL Categories, `zia urlcategory ls`.
   - To show all information, use `--all` option. (`zia urlcategory ls --all`) 
+
+4. URL Filtering Rules 
+  - To show configured names of URL Filtering Rules, `zia urlfilter ls`.
+  - To show all information, use `--all` option. (`zia urlfilter ls --all`) 
+
+### Support Feature
+
+|  TH  |  TH  |
+| ---- | ---- |
+|  TD  |  TD  |
