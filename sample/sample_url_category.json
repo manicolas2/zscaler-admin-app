@@ -1,7 +1,8 @@
 {
     "configuredName": "Dummy URL Category",
-    "urls": [".dummy.com"],
+    "urls": [
+        ".dummy.com"
+    ],
     "dbCategorizedUrls": [],
     "description": "This is TEST URL Category for using API Script"
-
 }
