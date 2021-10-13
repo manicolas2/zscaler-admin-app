@@ -102,6 +102,7 @@ def urlcategory(
 def urlfilter(
     cmd: str,
     all: bool = False,
+    file: Optional[str] = None,
 ):
     if cmd is None:
         typer.echo("Please set correct cmd after `urlfilter`")
@@ -113,3 +114,9 @@ def urlfilter(
         else:
             for rule_name in fetch_urlfiltering_rule_names():
                 typer.echo(rule_name)
+
+    if cmd == "create":
+        if file:
+            pass
+        else:
+            pass
