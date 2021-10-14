@@ -8,28 +8,38 @@ from zscaler_python_sdk import url_categories
 from zscaler_python_sdk import url_filtering_rules
 
 
-def fetch_adminroles() -> List[Dict[Any, Any]]:
-    adminroles = admin.fetch_adminroles()
+def fetch_adminroles(tenant: str = None) -> List[Dict[Any, Any]]:
+    adminroles = admin.fetch_adminroles(tenant=tenant)
     return adminroles
 
 
-def fetch_adminrole_names() -> List[str]:
-    adminroles = admin.fetch_adminroles()
-    role_names = [role["name"] for role in adminroles]
-    return role_names
+def fetch_adminrole_names(tenant: Optional[str] = None) -> List[str]:
+    adminroles = admin.fetch_adminroles(tenant=tenant)
+    if tenant is not None:
+        role_names = [role["name"] for role in adminroles[tenant]]
+        return {tenant: role_names}
+    else:
+        all_tenant_results: Dict[str, List[str]] = {}
+        for tenant_name in adminroles.keys():
+            all_tenant_results[tenant_name] = [
+                role["name"] for role in adminroles[tenant_name]
+            ]
+        return all_tenant_results
 
 
-def fetch_adminusers():
-    adminusers = admin.fetch_adminusers()
+def fetch_adminusers(tenant: Optional[str] = None) -> Dict[str, Dict[str, Any]]:
+    adminusers = admin.fetch_adminusers(tenant=tenant)
     return adminusers
 
 
-def fetch_adminuser_names() -> List[str]:
-    adminusers = admin.fetch_adminusers()
-    response: List[str] = [
-        f"{user['userName']} ({user['loginName']})" for user in adminusers
-    ]
-    return response
+def fetch_adminuser_names(tenant: Optional[str] = None) -> Dict[str, Dict[str, Any]]:
+    adminusers = admin.fetch_adminusers(tenant=tenant)
+    for tenant_name in adminusers.keys():
+        adminusers[tenant_name] = [
+            f"{user['userName']} ({user['loginName']})"
+            for user in adminusers[tenant_name]
+        ]
+    return adminusers
 
 
 def fetch_url_categories() -> List[List[Dict[Any, Any]]]:

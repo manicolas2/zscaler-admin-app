@@ -1,4 +1,7 @@
-from typing import List, Optional
+from typing import Any
+from typing import Dict
+from typing import List
+from typing import Optional
 
 import typer
 
@@ -17,32 +20,62 @@ app = typer.Typer()
 
 
 @app.command()
-def adminrole(cmd: str, all: bool = False):
-    if cmd is None:
-        typer.echo("Please set correct cmd after `adminrole`")
+def adminrole(
+    cmd: str,
+    all: bool = False,
+    tenant: Optional[str] = None,
+):
     if cmd == "ls":
         if all:
-            for role in fetch_adminroles():
-                typer.echo(role)
+            response: Dict[str, List[Any]] = fetch_adminroles(tenant=tenant)
+            if tenant is not None:
+                typer.echo(f"# Tenant: {tenant}")
+                for role in response[tenant]:
+                    typer.echo(role)
+            else:
+                for tenant_name in response.keys():
+                    typer.echo(f"# Tenant: {tenant_name}")
+                    for role in response[tenant_name]:
+                        typer.echo(role)
         else:
-            for role in fetch_adminrole_names():
-                typer.echo(role)
+            response: Dict[str, List[str]] = fetch_adminrole_names(tenant=tenant)
+            if tenant is not None:
+                typer.echo(f"# Tenant: {tenant}")
+                for role in response[tenant]:
+                    typer.echo(f"  - {role}")
+            else:
+                for tenant_name in response.keys():
+                    typer.echo(f"# Tenant: {tenant_name}")
+                    for role in response[tenant_name]:
+                        typer.echo(f"  - {role}")
 
 
 @app.command()
 def adminuser(
     cmd: str,
     all: bool = False,
+    tenant: Optional[str] = None,
 ):
-    if cmd is None:
-        typer.echo("Please set correct cmd after `adminuser`")
     if cmd == "ls":
         if all:
-            for user in fetch_adminusers():
-                typer.echo(user)
+            if tenant is not None:
+                reponse: Dict[str, Dict[str, Any]] = fetch_adminusers(tenant=tenant)
+                typer.echo(f"# Tenant: {tenant}")
+                for adminuser in reponse[tenant]:
+                    typer.echo(adminuser)
+            else:
+                pass
         else:
-            for user in fetch_adminuser_names():
-                typer.echo(user)
+            response: Dict[str, Any] = fetch_adminuser_names(tenant=tenant)
+            if tenant is not None:
+                typer.echo(f"# Tenant: {tenant}")
+                for user in response[tenant]:
+                    typer.echo(f"  - {user}")
+            else:
+                for tenant_name in response.keys():
+                    typer.echo(f"# Tenant: {tenant}")
+                    for user in response[tenant_name]:
+                        typer.echo(f"  - {user}")
     if cmd == "create":
         pass
 
