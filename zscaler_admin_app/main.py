@@ -58,13 +58,16 @@ def adminuser(
 ):
     if cmd == "ls":
         if all:
+            response: Dict[str, Dict[str, Any]] = fetch_adminusers(tenant=tenant)
             if tenant is not None:
-                reponse: Dict[str, Dict[str, Any]] = fetch_adminusers(tenant=tenant)
                 typer.echo(f"# Tenant: {tenant}")
-                for adminuser in reponse[tenant]:
+                for adminuser in response[tenant]:
                     typer.echo(adminuser)
             else:
-                pass
+                for tenant_name in response.keys():
+                    typer.echo(f"# Tenant: {tenant_name}")
+                    for user in response[tenant_name]:
+                        typer.echo(f"  - {user}")
         else:
             response: Dict[str, Any] = fetch_adminuser_names(tenant=tenant)
             if tenant is not None:
@@ -84,21 +87,26 @@ def adminuser(
 def urlcategory(
     cmd: str,
     all: bool = False,
+    tenant: Optional[str] = None,
     file: Optional[str] = None,
     name: Optional[str] = None,
     urls: Optional[List[str]] = None,
     dbcategorizedurls: Optional[List[str]] = None,
     description: Optional[str] = None,
 ):
-    if cmd is None:
-        typer.echo("Please set correct cmd after `urlcategory`")
     if cmd == "ls":
         if all:
-            for result in fetch_url_categories():
-                typer.echo(result)
+            response: Dict[str, Any] = fetch_url_categories(tenant=tenant)
+            for tenant_name in response.keys():
+                typer.echo(f"# Tenant: {tenant_name}")
+                for urlcategory in response[tenant_name]:
+                    typer.echo(urlcategory)
         else:
-            for result in fetch_url_category_names():
-                typer.echo(result)
+            response: Dict[str, Any] = fetch_url_category_names(tenant=tenant)
+            for tenant_name in response.keys():
+                typer.echo(f"# Tenant: {tenant_name}")
+                for urlcategory in response[tenant_name]:
+                    typer.echo(f"  - {urlcategory}")
 
     if cmd == "create":
         if file:

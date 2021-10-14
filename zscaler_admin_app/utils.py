@@ -42,19 +42,21 @@ def fetch_adminuser_names(tenant: Optional[str] = None) -> Dict[str, Dict[str, A
     return adminusers
 
 
-def fetch_url_categories() -> List[List[Dict[Any, Any]]]:
-    response: List[Dict[Any, Any]] = url_categories.fetch_url_categories()
+def fetch_url_categories(tenant: Optional[str] = None) -> Dict[Any, Any]:
+    response: List[Dict[Any, Any]] = url_categories.fetch_url_categories(tenant=tenant)
     return response
 
 
-def fetch_url_category_names() -> List[str]:
-    categories: List[Dict[Any, Any]] = url_categories.fetch_url_categories()
-    response: List[str] = []
-    for category in categories:
-        if "configuredName" not in category.keys():
-            response.append(category["id"])
-        else:
-            response.append(f"{category['id']} ({category['configuredName']})")
+def fetch_url_category_names(tenant: Optional[str] = None) -> Dict[str, List[str]]:
+    response: Dict[str, Any] = url_categories.fetch_url_categories(tenant=tenant)
+    for tenant_name in response.keys():
+        category_list: List[str] = []
+        for category in response[tenant_name]:
+            if "configuredName" not in category.keys():
+                category_list.append(category["id"])
+            else:
+                category_list.append(f"{category['id']} ({category['configuredName']})")
+        response[tenant_name] = category_list
     return response
 
 
