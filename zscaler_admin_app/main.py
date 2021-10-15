@@ -15,6 +15,7 @@ from zscaler_admin_app.utils import fetch_url_category_names
 from zscaler_admin_app.utils import create_custom_url_category
 from zscaler_admin_app.utils import fetch_urlfiltering_rule_names
 from zscaler_admin_app.utils import fetch_urlfiltering_rule_details
+from zscaler_admin_app.utils import create_urlfiltering_rule
 
 
 app = typer.Typer()
@@ -186,7 +187,14 @@ def urlfilter(
                     typer.echo(f"  - {rule}")
 
     if cmd == "create":
-        if file:
-            pass
-        else:
-            pass
+        if tenant is None:
+            typer.echo("To create new url filter rule, set `--tenant`")
+            return
+        if file is None:
+            typer.echo("To create new url filter rule, set `--file`")
+            return
+        message: Dict[str, Any] = create_urlfiltering_rule(
+            source_file_path=file,
+            tenant=tenant,
+        )
+        typer.echo(message)

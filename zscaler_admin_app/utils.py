@@ -132,3 +132,38 @@ def fetch_urlfiltering_rule_names(tenant: str) -> Dict[str, List[str]]:
 def fetch_urlfiltering_rule_details(tenant: str) -> List[str]:
     url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules(tenant=tenant)
     return url_filter_rules
+
+
+def create_urlfiltering_rule(
+    source_file_path: str,
+    tenant: str,
+) -> Dict[str, Any]:
+    with open(source_file_path) as file:
+        parameters = json.load(file)
+        rule_name = parameters["name"]
+        order = parameters["order"]
+        protocols = parameters["protocols"]
+        locations = parameters["locations"]
+        groups = parameters["groups"]
+        departments = parameters["departments"]
+        users = parameters["users"]
+        url_categories = parameters["urlCategories"]
+        state = parameters["state"]
+        rank = parameters["rank"]
+        action = parameters["action"]
+
+    message: Dict[str, Any] = url_filtering_rules.create_url_filering_rules(
+        name=rule_name,
+        order=order,
+        protocols=protocols,
+        locations=locations,
+        groups=groups,
+        departments=departments,
+        users=users,
+        url_categories=url_categories,
+        state=state,
+        rank=rank,
+        action=action,
+        tenant=tenant,
+    )
+    return message
