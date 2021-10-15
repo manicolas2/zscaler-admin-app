@@ -16,6 +16,12 @@ from zscaler_admin_app.utils import create_custom_url_category
 from zscaler_admin_app.utils import fetch_urlfiltering_rule_names
 from zscaler_admin_app.utils import fetch_urlfiltering_rule_details
 from zscaler_admin_app.utils import create_urlfiltering_rule
+from zscaler_admin_app.utils import fetch_users
+from zscaler_admin_app.utils import fetch_user_summary
+from zscaler_admin_app.utils import fetch_departments
+from zscaler_admin_app.utils import fetch_department_summary
+from zscaler_admin_app.utils import fetch_groups
+from zscaler_admin_app.utils import fetch_group_summary
 
 
 app = typer.Typer()
@@ -107,6 +113,45 @@ def adminuser(
         # else:
         # TODO: create prompt
         # login_name = typer.prompt("What's this URL Category Name?")
+
+
+@app.command()
+def usermng(
+    cmd: str,
+    type: str,
+    all: bool = False,
+    tenant: Optional[str] = None,
+):
+    if cmd == "ls":
+        if all:
+            if type == "user":
+                users = fetch_users(tenant=tenant)
+                typer.echo(users)
+            elif type == "department" or type == "dpt":
+                departments = fetch_departments(tenant=tenant)
+                typer.echo(departments)
+            elif type == "groups" or type == "grp":
+                groups = fetch_groups(tenant=tenant)
+                typer.echo(groups)
+        else:
+            if type == "user":
+                users = fetch_user_summary(tenant=tenant)
+                for tenant_name in users.keys():
+                    typer.echo(f"# {tenant_name}")
+                    for user in users[tenant_name]:
+                        typer.echo(f"  - {user}")
+            elif type == "department" or type == "dpt":
+                departments = fetch_department_summary(tenant=tenant)
+                for tenant_name in departments.keys():
+                    typer.echo(f"# {tenant_name}")
+                    for department in departments[tenant_name]:
+                        typer.echo(f"  - {department}")
+            elif type == "groups" or type == "grp":
+                groups = fetch_group_summary(tenant=tenant)
+                for tenant_name in groups.keys():
+                    typer.echo(f"# {tenant_name}")
+                    for group in groups[tenant_name]:
+                        typer.echo(f"  - {group}")
 
 
 @app.command()

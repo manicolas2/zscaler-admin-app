@@ -6,6 +6,7 @@ from typing import List
 from zscaler_python_sdk import admin
 from zscaler_python_sdk import url_categories
 from zscaler_python_sdk import url_filtering_rules
+from zscaler_python_sdk import users
 
 
 def fetch_adminroles(tenant: str = None) -> List[Dict[Any, Any]]:
@@ -69,6 +70,55 @@ def create_new_adminuser(
         tenant=tenant,
     )
     return message
+
+
+def fetch_users(tenant: Optional[str]):
+    user_list: Dict[str, Any] = users.fetch_users(tenant=tenant)
+    return user_list
+
+
+def fetch_user_summary(tenant: Optional[str]):
+    users_summary: Dict[str, Any] = users.fetch_users(tenant=tenant)
+    user_summary: List[Dict[str, str]] = []
+    for tenant_name in users_summary.keys():
+        for user in users_summary[tenant_name]:
+            username: str = user["name"]
+            email: str = user["email"]
+            groups: List[str] = [group["name"] for group in user["groups"]]
+            department: str = (
+                user["department"]["name"] if "department" in user.keys() else None
+            )
+            user_summary.append(
+                f"{username} (Mail: {email}, Group: {groups}, Department: {department})"
+            )
+        users_summary[tenant_name] = user_summary
+    return users_summary
+
+
+def fetch_departments(tenant: Optional[str]):
+    departments: Dict[str, Any] = users.fetch_departments(tenant=tenant)
+    return departments
+
+
+def fetch_department_summary(tenant: Optional[str]):
+    departments: Dict[str, Any] = users.fetch_departments(tenant=tenant)
+    for tenant_name in departments.keys():
+        dpt_name: List[str] = [dpt["name"] for dpt in departments[tenant_name]]
+        departments[tenant_name] = dpt_name
+    return departments
+
+
+def fetch_groups(tenant: Optional[str]):
+    groups: Dict[str, Any] = users.fetch_groups(tenant=tenant)
+    return groups
+
+
+def fetch_group_summary(tenant: Optional[str]):
+    groups: Dict[str, Any] = users.fetch_groups(tenant=tenant)
+    for tenant_name in groups.keys():
+        group: List[str] = [group["name"] for group in groups[tenant_name]]
+        groups[tenant_name] = group
+    return groups
 
 
 def fetch_url_categories(tenant: Optional[str] = None) -> Dict[Any, Any]:
