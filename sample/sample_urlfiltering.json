@@ -1,0 +1,17 @@
+{
+    "name": "API TEST RULE",
+    "order": 1,
+    "protocols": [
+        "HTTPS_RULE"
+    ],
+    "locations": [],
+    "groups": [],
+    "departments": [],
+    "users": [],
+    "urlCategories": [
+        "GAMBLING"
+    ],
+    "state": "DISABLED",
+    "rank": 0,
+    "action": "ALLOW"
+}
