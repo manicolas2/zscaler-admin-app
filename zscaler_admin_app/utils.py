@@ -42,6 +42,35 @@ def fetch_adminuser_names(tenant: Optional[str] = None) -> Dict[str, Dict[str, A
     return adminusers
 
 
+def create_new_adminuser(
+    tenant: str,
+    source_file_path: Optional[str] = None,
+    login_name: Optional[str] = None,
+    user_name: Optional[List[str]] = None,
+    email: Optional[List[str]] = None,
+    password: Optional[str] = None,
+    role_name: Optional[str] = None,
+) -> Dict[str, Any]:
+    if source_file_path is not None:
+        with open(source_file_path) as file:
+            parameters = json.load(file)
+            login_name = parameters["loginName"]
+            user_name = parameters["userName"]
+            email = parameters["email"]
+            password = parameters["password"]
+            role_name = parameters["role"]
+
+    message: str = admin.create_adminuser(
+        loginName=login_name,
+        userName=user_name,
+        email=email,
+        password=password,
+        rolename=role_name,
+        tenant=tenant,
+    )
+    return message
+
+
 def fetch_url_categories(tenant: Optional[str] = None) -> Dict[Any, Any]:
     response: List[Dict[Any, Any]] = url_categories.fetch_url_categories(tenant=tenant)
     return response

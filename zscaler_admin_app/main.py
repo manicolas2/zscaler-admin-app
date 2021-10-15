@@ -9,6 +9,7 @@ from zscaler_admin_app.utils import fetch_adminroles
 from zscaler_admin_app.utils import fetch_adminrole_names
 from zscaler_admin_app.utils import fetch_adminusers
 from zscaler_admin_app.utils import fetch_adminuser_names
+from zscaler_admin_app.utils import create_new_adminuser
 from zscaler_admin_app.utils import fetch_url_categories
 from zscaler_admin_app.utils import fetch_url_category_names
 from zscaler_admin_app.utils import create_custom_url_category
@@ -54,6 +55,12 @@ def adminrole(
 def adminuser(
     cmd: str,
     all: bool = False,
+    file: Optional[str] = None,
+    loginname: Optional[str] = None,
+    username: Optional[str] = None,
+    email: Optional[str] = None,
+    password: Optional[str] = None,
+    role: Optional[str] = None,
     tenant: Optional[str] = None,
 ):
     if cmd == "ls":
@@ -76,11 +83,26 @@ def adminuser(
                     typer.echo(f"  - {user}")
             else:
                 for tenant_name in response.keys():
-                    typer.echo(f"# Tenant: {tenant}")
+                    typer.echo(f"# Tenant: {tenant_name}")
                     for user in response[tenant_name]:
                         typer.echo(f"  - {user}")
     if cmd == "create":
-        pass
+        if tenant is None:
+            typer.echo("Please set `--tenant` to create adminuser")
+            return
+        if file is not None:
+            message: str = create_new_adminuser(source_file_path=file, tenant=tenant)
+            typer.echo(message)
+        elif loginname is username is email is password is role is not None:
+            message: str = create_new_adminuser(
+                login_name=loginname,
+                user_name=username,
+                email=email,
+                password=password,
+                role_name=role,
+                tenant=tenant,
+            )
+            typer.echo(message)
 
 
 @app.command()
