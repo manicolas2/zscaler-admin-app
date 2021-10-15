@@ -90,6 +90,7 @@ def fetch_url_category_names(tenant: Optional[str] = None) -> Dict[str, List[str
 
 
 def create_custom_url_category(
+    tenant: str,
     source_file_path: Optional[str] = None,
     configured_name: Optional[str] = None,
     urls: Optional[List[str]] = None,
@@ -109,22 +110,25 @@ def create_custom_url_category(
         urls,
         db_categorized_urls,
         description,
+        tenant=tenant,
     )
     return message
 
 
-def fetch_urlfiltering_rule_names() -> List[str]:
-    url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules()
-    names_of_urlfilter_rules = [
-        (
-            f"{rule['name']} (Order: {rule['order']}, Action: {rule['action']}, "
-            f"Status: {rule['state']})"
-        )
-        for rule in url_filter_rules
-    ]
-    return names_of_urlfilter_rules
+def fetch_urlfiltering_rule_names(tenant: str) -> Dict[str, List[str]]:
+    url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules(tenant=tenant)
+    for tenant_name in url_filter_rules.keys():
+        names_of_urlfilter_rules = [
+            (
+                f"{rule['name']} (Order: {rule['order']}, Action: {rule['action']}, "
+                f"Status: {rule['state']})"
+            )
+            for rule in url_filter_rules[tenant_name]
+        ]
+        url_filter_rules[tenant_name] = names_of_urlfilter_rules
+    return url_filter_rules
 
 
-def fetch_urlfiltering_rule_details() -> List[str]:
-    url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules()
+def fetch_urlfiltering_rule_details(tenant: str) -> List[str]:
+    url_filter_rules = url_filtering_rules.fetch_all_url_filering_rules(tenant=tenant)
     return url_filter_rules
