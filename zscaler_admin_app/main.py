@@ -243,3 +243,13 @@ def urlfilter(
             tenant=tenant,
         )
         typer.echo(message)
+
+
+@app.command()
+def sp(tenant: Optional[str]):
+    for file in [
+        "./starter_pack/ssl_bypass_cateogry_file.json",
+        "./starter_pack/white_list_category_file.json",
+        "./starter_pack/black_list_category_file.json",
+    ]:
+        urlcategory(cmd="create", tenant=tenant, file=file)
