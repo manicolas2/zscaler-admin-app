@@ -8,6 +8,8 @@ from zscaler_python_sdk import url_categories
 from zscaler_python_sdk import url_filtering_rules
 from zscaler_python_sdk import users
 
+from zscaler_python_sdk import utils
+
 
 def fetch_adminroles(tenant: str = None) -> List[Dict[Any, Any]]:
     adminroles = admin.fetch_adminroles(tenant=tenant)
@@ -197,7 +199,9 @@ def create_urlfiltering_rule(
         groups = parameters["groups"]
         departments = parameters["departments"]
         users = parameters["users"]
-        url_categories = parameters["urlCategories"]
+        url_categories = utils.translate_category_from_name_to_id(
+            parameters["urlCategories"], tenant
+        )
         state = parameters["state"]
         rank = parameters["rank"]
         action = parameters["action"]

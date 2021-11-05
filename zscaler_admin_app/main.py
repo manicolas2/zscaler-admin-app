@@ -253,3 +253,9 @@ def sp(tenant: Optional[str]):
         "./starter_pack/black_list_category_file.json",
     ]:
         urlcategory(cmd="create", tenant=tenant, file=file)
+
+    for file in [
+        "./starter_pack/white_list_urlfiltering_file.json",
+        "./starter_pack/black_list_urlfiltering_file.json",
+    ]:
+        urlfilter(cmd="create", tenant=tenant, file=file)

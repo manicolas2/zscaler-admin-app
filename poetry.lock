@@ -353,5 +353,5 @@ urllib3 = [
     {file = "urllib3-1.26.7.tar.gz", hash = "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"},
 ]
 zscaler-python-sdk = [
-    {file = "zscaler_python_sdk-0.1.1-py3-none-any.whl", hash = "sha256:08c895614df6aaf9a77e3706901ceb980c4bf1ddec3d1dc08d929121e16fdc7f"},
+    {file = "zscaler_python_sdk-0.1.1-py3-none-any.whl", hash = "sha256:492cd8dd6b9c0dec83c2188f07bca34ddb88ec452ce37839fca6923c657bafad"},
 ]
