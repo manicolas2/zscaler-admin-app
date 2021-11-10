@@ -10,7 +10,7 @@ packages = [{include = "zscaler_admin_app"}]
 python = "^3.9"
 black = "^21.9b0"
 typer = "^0.4.0"
-zscaler-python-sdk = {path = "lib/zscaler_python_sdk-0.1.1-py3-none-any.whl"}
+zscaler-python-sdk = {path = "lib/zscaler_python_sdk-0.1.2-py3-none-any.whl"}
 
 [tool.poetry.dev-dependencies]
 flake8 = "^3.9.2"

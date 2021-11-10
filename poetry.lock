@@ -210,7 +210,7 @@ socks = ["PySocks (>=1.5.6,!=1.5.7,<2.0)"]
 
 [[package]]
 name = "zscaler-python-sdk"
-version = "0.1.1"
+version = "0.1.2"
 description = ""
 category = "main"
 optional = false
@@ -222,12 +222,12 @@ requests = ">=2.26.0,<3.0.0"
 
 [package.source]
 type = "file"
-url = "lib/zscaler_python_sdk-0.1.1-py3-none-any.whl"
+url = "lib/zscaler_python_sdk-0.1.2-py3-none-any.whl"
 
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.9"
-content-hash = "a6377f62d0a87f37ef2ce9765a539c6af25d15e2c9a6dce961f47be0186839ae"
+content-hash = "83579f7c606527b0c0893efa401b01da775c71cacfb31cd7695a491b00f00679"
 
 [metadata.files]
 black = [
@@ -353,5 +353,5 @@ urllib3 = [
     {file = "urllib3-1.26.7.tar.gz", hash = "sha256:4987c65554f7a2dbf30c18fd48778ef124af6fab771a377103da0585e2336ece"},
 ]
 zscaler-python-sdk = [
-    {file = "zscaler_python_sdk-0.1.1-py3-none-any.whl", hash = "sha256:492cd8dd6b9c0dec83c2188f07bca34ddb88ec452ce37839fca6923c657bafad"},
+    {file = "zscaler_python_sdk-0.1.2-py3-none-any.whl", hash = "sha256:e54c2458baaff56f659129804ec396227d5dd3a29125738683bab6524849440a"},
 ]
