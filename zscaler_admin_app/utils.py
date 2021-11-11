@@ -221,3 +221,48 @@ def create_urlfiltering_rule(
         tenant=tenant,
     )
     return message
+
+
+def update_urlfiltering_rule(
+    tenant: str,
+    source_file_path: Optional[str] = None,
+) -> Any:
+    if source_file_path is not None:
+        with open(source_file_path) as file:
+            parameters = json.load(file)
+            name = parameters["name"] if "name" in parameters.keys() else None
+            order = parameters["order"] if "order" in parameters.keys() else None
+            protocols = (
+                parameters["protocols"] if "protocols" in parameters.keys() else None
+            )
+            # TODO: will support, at first need to modify sdk
+            # locations = (
+            #     parameters["locations"] if "locations" in parameters.keys() else None
+            # )
+            # groups = parameters["groups"] if "groups" in parameters.keys() else None
+            # departments = (
+            #     parameters["departments"]
+            #     if "departments" in parameters.keys()
+            #     else None
+            # )
+            # users = parameters["users"] if "users" in parameters.keys() else None
+            # url_categories = utils.translate_category_from_name_to_id(
+            #     parameters["urlCategories"]
+            #     if "urlCategories" in parameters.keys()
+            #     else None,
+            #     tenant,
+            # )
+            state = parameters["state"] if "state" in parameters.keys() else None
+            rank = parameters["rank"] if "rank" in parameters.keys() else None
+            action = parameters["action"] if "action" in parameters.keys() else None
+
+    message = url_filtering_rules.update_url_filtering_rule(
+        rule_name=name,
+        tenant=tenant,
+        order=order,
+        rank=rank,
+        state=state,
+        protocols=protocols,
+        action=action,
+    )
+    return f"[{message.status_code}]{message.text}"

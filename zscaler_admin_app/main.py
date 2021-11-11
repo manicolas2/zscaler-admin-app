@@ -22,6 +22,7 @@ from zscaler_admin_app.utils import fetch_departments
 from zscaler_admin_app.utils import fetch_department_summary
 from zscaler_admin_app.utils import fetch_groups
 from zscaler_admin_app.utils import fetch_group_summary
+from zscaler_admin_app.utils import update_urlfiltering_rule
 
 
 app = typer.Typer()
@@ -244,6 +245,15 @@ def urlfilter(
         )
         typer.echo(message)
 
+    if cmd == "update":
+        if file is not None:
+            message: str = update_urlfiltering_rule(
+                tenant=tenant, source_file_path=file
+            )
+            typer.echo(message)
+        else:
+            typer.echo("Please set `--file` option")
+
 
 @app.command()
 def sp(tenant: Optional[str]):
@@ -259,3 +269,9 @@ def sp(tenant: Optional[str]):
         "./sample/black_list_urlfiltering_file.json",
     ]:
         urlfilter(cmd="create", tenant=tenant, file=file)
+
+    urlfilter(
+        cmd="update",
+        tenant=tenant,
+        file="./sample/enable_existing_rule_file.json",
+    )
