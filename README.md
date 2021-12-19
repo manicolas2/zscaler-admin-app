@@ -3,7 +3,7 @@
 
 ### What is this Repository
 ---
-- This repository is CLI tools to manage Zscaler, especially ZIA.
+- This repository is a collection of CLI tools to manage Zscaler, especially ZIA.
 - You could manage ZIA like
   - list and update Admin Role
   - list, create and update Admin User
@@ -17,9 +17,9 @@
 - [poetry](https://python-poetry.org/docs/#installation)
 
 
-### Instllation / Setup
+### Installation / Setup
 ---
-1. Cloen this repository, run `git clone https://github.com/yuta519/zscaler-admin-app.git`.
+1. Clone this repository, run `git clone https://github.com/yuta519/zscaler-admin-app.git`.
 2. To enter Virtual Environment, run `poetry shell`.
 3. Install packages to run `poetry install`.
 4. Write the ZIA credential infolmation at `config/config.ini` like
